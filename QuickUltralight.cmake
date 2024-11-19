@@ -9,7 +9,7 @@ file(DOWNLOAD https://raw.githubusercontent.com/CesarBerriot/QuickUltralight/ref
 file(DOWNLOAD https://raw.githubusercontent.com/CesarBerriot/QuickUltralight/refs/heads/master/quick_ultralight.c ${CMAKE_BINARY_DIR}/QuickUltralight/api/quick_ultralight.c)
 
 # download Ultralight
-file(DOWNLOAD https://github.com/ultralight-ux/Ultralight/releases/download/v1.3.0/ultralight-sdk-1.3.0-win-x64.7z ${CMAKE_BINARY_DIR}/Ultralight.7z)
+file(DOWNLOAD https://github.com/ultralight-ux/Ultralight/releases/download/v1.4.0-beta/ultralight-sdk-1.4.0b-win-x64.7z ${CMAKE_BINARY_DIR}/Ultralight.7z)
 file(ARCHIVE_EXTRACT INPUT ${CMAKE_BINARY_DIR}/ultralight.7z DESTINATION ${CMAKE_BINARY_DIR}/Ultralight)
 file(REMOVE ${CMAKE_BINARY_DIR}/Ultralight.7z)
 

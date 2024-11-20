@@ -1,4 +1,7 @@
 #include "quick_ultralight.h"
+#include <windows.h>
+
+#define assert(...) do { if(!(__VA_ARGS__)) exit(EXIT_FAILURE); } while(0)
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -63,9 +66,16 @@ static void create_application(char developer_name[], char application_name[])
 
 	ulDestroyConfig(config);
 }
-
 static void create_window(char window_title[], int window_width, int window_height, bool is_window_size_fixed)
 {	window = ulCreateWindow(ulAppGetMainMonitor(application), window_width, window_height, false, kWindowFlags_Titled | (!is_window_size_fixed * (kWindowFlags_Resizable | kWindowFlags_Maximizable)));
+	// Ultralight's AppCore provides no solution to allow minimization without maximization
+	if(is_window_size_fixed)
+	{	HWND win32_window = GetActiveWindow();
+		assert(window);
+		LONG styles = GetWindowLongA(win32_window, GWL_STYLE);
+		assert(styles);
+		assert(SetWindowLongA(win32_window, GWL_STYLE, styles | WS_MINIMIZEBOX));
+	}
 	ulWindowSetTitle(window, window_title);
 	ulWindowSetCloseCallback(window, window_closed_callback, NULL);
 	ulWindowSetResizeCallback(window, window_resized_callback, NULL);
